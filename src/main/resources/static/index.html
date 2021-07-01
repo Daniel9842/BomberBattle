@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<style>
+		body {
+			background-image: url("images/fondo.png");
+		}
+
+		.button {
+			background-color: #4CAF50;
+			/* Green */
+			border: none;
+			color: white;
+			padding: 16px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.button1 {
+			font-family: Helvetica;
+			background-color: green;
+			color: black;
+			border: 2px solid;
+		}
+
+		.button1:hover {
+			background-color: #09901F;
+		}
+
+		.invalid-feedback {
+			background-color: black;
+			padding: 8px 12px;
+			width: 50px;
+			height: 35px;
+
+		}
+
+		.valid-feedback {
+			background-color: black;
+			padding: 8px 12px;
+			width: 50px;
+			height: 35px;
+			float: left;
+		}
+
+		input[type=text] {
+			width: 20%;
+			padding: 20px 20px;
+			margin: 8px 0;
+			box-sizing: border-box;
+		}
+
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 16px 65px;
+			text-decoration: none;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+
+		img { margin-left:150px; }
+
+		.titulo {
+			text-align: center;
+			font-size: 75px;
+			font-family: monospace;
+			background-color: black;
+			color: white;
+		}
+	</style>
+	<title>BomberBattle</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<br><br>
+	<h1 class="titulo">BomberBattle</h1>
+	<div class="container">
+		<img style="left:30px" class="img-fluid" src="images/bomberman.png" alt="BomberBattle">
+		<img style="transform: scaleX(-1);" class="img-fluid" src="images/bomberman.png" alt="BomberBattle"><br>
+	</div>
+	<div class="container">
+		<form action="/action_page.php" class="was-validated">
+			<div class="form-group">
+				<input type="text" class="form-control" id="usuario" placeholder="Ingrese usuario" name="usuario"
+					required>
+				<div class="valid-feedback">Valido</div>
+				<div class="invalid-feedback">Ingrese un usuario</div>
+			</div>
+			<button class="button button1">Jugar</button>
+		</form>
+	</div>
+</body>
+
+</html>
