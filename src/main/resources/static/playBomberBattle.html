@@ -1,7 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	<style>
+		#player {
+			margin: 200px;
+			width: 38px;
+			height: 55px;
+			position: absolute;
+		}
+	</style>
 	<title>BomberBattle</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,34 +17,18 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<style>
-		body {
-			background-image: url("images/cielo.jfif");
-		}
 
-		h1 {
-			text-align: center;
-		}
-
-		#player {
-			margin: 200px;
-			width: 40px;
-			height: 65px;
-			position: absolute;
-		}
-
-		
-	</style>
 </head>
 
-<script src=" js/index.js"></script>
-
 <body>
+	<canvas id="canvas" width="1360" height="650"></canvas>
 	<div class="container">
 		
-		<img style="left:30px;margin:5%" id="mapa" class="img-fluid" src="images/mapa.png" alt="BomberBattle">
-		<img style="left:1px" id="player" class="img-fluid" src="images/white.png" alt="BomberBattle">
+		<img style="left:30px" id="player" class="img-fluid" src="images/white.png" alt="BomberBattle">
 	</div>
+	<script src="js/map.js"></script>
+	
+
 </body>
 
 </html>
