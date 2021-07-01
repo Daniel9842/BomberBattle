@@ -23,4 +23,4 @@ BomberBattle está basado en el juego arcade Bomberman.
 
 ## Historias de usuario :runner:
 
-![Diseño userCase](Design/usercase.png "userCase")<br>
+![Diseño userCase](Design/usercase.PNG "userCase")<br>
