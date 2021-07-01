@@ -1,5 +1,5 @@
 # BomberBattle :bomb:
-## Daniel Santiago Ducuara Ardila
+## Autor : Daniel Santiago Ducuara Ardila
 
 ## Resumen :exclamation:
 BomberBattle es un juego multijugador de estrategia en el que el ganador de cada partida es
