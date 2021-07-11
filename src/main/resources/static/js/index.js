@@ -1,3 +1,4 @@
+
 let cont1left=230;
 let cont2left=0;
 window.onload=function(){document.onkeydown=desplazar};
@@ -21,3 +22,4 @@ window.onload=function(){document.onkeydown=desplazar};
                 player.style.top = situacionX-180+"px" ;break;
         }
     }
+

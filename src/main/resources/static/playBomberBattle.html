@@ -3,11 +3,16 @@
 
 <head>
 	<style>
-		#player {
-			margin: 200px;
-			width: 38px;
-			height: 55px;
+		body {
+			background-image: url("images/cielo.jfif");
+		}
+
+		canvas {
 			position: absolute;
+			top: 0;
+			left: 0;
+			width: 70%;
+			height: 70%;
 		}
 	</style>
 	<title>BomberBattle</title>
@@ -21,14 +26,19 @@
 </head>
 
 <body>
-	<canvas id="canvas" width="1360" height="650"></canvas>
-	<div class="container">
-		
-		<img style="left:30px" id="player" class="img-fluid" src="images/white.png" alt="BomberBattle">
+	<div class="bomberGame">
+		<canvas id="canvasMap"></canvas>
+		<canvas id="canvasPlayer"></canvas>
+		<canvas id="canvasBomb"></canvas>
+		<canvas id="canvasBoom"></canvas>
+		<canvas id="canvasWall"></canvas>
 	</div>
+	<script src="js/canvasConf.js"></script>
 	<script src="js/map.js"></script>
-	
-
+	<script src="js/wall.js"></script>
+	<script src="js/boom.js"></script>
+	<script src="js/bomb.js"></script>
+	<script src="js/player.js"></script>
 </body>
 
 </html>
