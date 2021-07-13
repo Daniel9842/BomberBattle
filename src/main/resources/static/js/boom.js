@@ -8,9 +8,15 @@ class Boom {
 		arrayExplosion[positionBombRow][positionBombColumn] = 1;
 		for (let a = 0; a < bombSize; a++) {
 
-			if (goRigth && this.positionBombColumn < columnsMap && (arrayObjects[this.positionBombRow][this.positionBombColumn + 1] == 0)) {
-				ctx4.drawImage(explosion, (this.positionBombColumn + a) * 60, this.positionBombRow * 60, 60, 60);
-				arrayExplosion[positionBombRow][positionBombColumn + a] = 1;
+			if (goRigth && this.positionBombColumn < columnsMap) {
+				if(arrayObjects[this.positionBombRow][this.positionBombColumn + 1] == 0){
+					ctx4.drawImage(explosion, (this.positionBombColumn + a) * 60, this.positionBombRow * 60, 60, 60);
+					arrayExplosion[positionBombRow][positionBombColumn + a] = 1;
+				}else if(arrayObjects[this.positionBombRow][this.positionBombColumn + 1] == 5){
+					arrayWalls[this.positionBombRow][this.positionBombColumn + 1] =0;
+					//eraserWalls(this.positionBombRow,this.positionBombColumn);
+				}
+				
 			} else {
 				goRigth = false;
 			}
@@ -42,8 +48,6 @@ class Boom {
 
 		}
 
-
-
 	}
 	eraser() {
 		ctx4.clearRect(0, 0, 900, 540);
@@ -68,7 +72,5 @@ class Boom {
 		goLeft = true;
 		goRigth = true;
 	}
+
 }
-
-
-

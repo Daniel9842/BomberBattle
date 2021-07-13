@@ -14,13 +14,24 @@ var goRigth = true;
 var positionBombRow;
 var positionBombColumn;
 var alive = true;
-var timerAlive = setInterval(itsAlive,500);
-var timerSizeBomb = setInterval(sizeBomb,30000);
+var timerAlive = setInterval(itsAlive, 500);
+var timerSizeBomb = setInterval(sizeBomb, 30000);
+
+let points = { pointsarr: [] };
+let allPoints = { newpointsarr: [] };
+let timerId = setInterval(() => checkPoints(), 1500);
+let timer = setInterval(() => getPointsCacheUser(), 1000);
 
 var player = new Image();
 player.src = 'images/bluelow.png';
 player.onload = function () {
 	ctx2.drawImage(player, positionx, positiony, 35, 55);
+}
+
+var player2 = new Image();
+player2.src = 'images/white.png';
+player2.onload = function () {
+	ctx2.drawImage(player2, 14 * 60, 8 * 60, 35, 55);
 }
 
 var rightPressed = false;
@@ -34,24 +45,25 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
 	if (e.keyCode == 39) {
-		rightPressed = true;
-		draw();
+		points.pointsarr.push(["rightPressed", "true"]);
 	}
 	else if (e.keyCode == 37) {
-		leftPressed = true;
-		draw();
+		points.pointsarr.push(["leftPressed", "true"]);
 	}
 	else if (e.keyCode == 38) {
-		upPressed = true;
-		draw();
+		points.pointsarr.push(["upPressed", "true"]);
 	}
 	else if (e.keyCode == 40) {
-		downPressed = true;
-		draw();
+		
 	}
 	else if (e.keyCode == 32) {
-		spacePressed = true;
-		if (bombInMap == false) {
+		points.pointsarr.push(["spacePressed", "true"]);
+		
+	}
+}
+
+function makeBomb(){
+	if (bombInMap == false) {
 			var bomba = new Bomb(positionx, positiony);
 			arrayObjects[playerPositionArrayRow][playerPositionArrayColumn] = 2;
 			bombInMap = true;
@@ -60,7 +72,6 @@ function keyDownHandler(e) {
 			positionBombColumn = playerPositionArrayColumn;
 			setTimeout(explosionBomb, 3000, bomba);
 		}
-	}
 }
 
 function keyUpHandler(e) {
@@ -101,12 +112,21 @@ function draw() {
 	}
 
 	ctx2.clearRect(0, 0, 900, 540);
+
 	var player = new Image();
 	player.src = 'images/bluelow.png';
 	player.onload = function () {
 		ctx2.drawImage(player, positionx, positiony, 35, 55);
 
 	}
+
+	var player2 = new Image();
+	player2.src = 'images/white.png';
+	player2.onload = function () {
+		ctx2.drawImage(player2, 14 * 60, 8 * 60, 35, 55);
+	}
+
+
 }
 
 
@@ -120,18 +140,76 @@ function explosionBomb(bomba) {
 function itsAlive() {
 	for (let z = 0; z < rows; z++) {
 		for (let x = 0; x < columns; x++) {
-			if(arrayExplosion[playerPositionArrayRow][playerPositionArrayColumn]!=0){
+			if (arrayExplosion[playerPositionArrayRow][playerPositionArrayColumn] != 0) {
 				alive = false;
+				clearInterval(timerAlive);
 			}
 		}
 	}
-	console.log(alive);
+
 }
 
-function sizeBomb(){
-	if(bombSize<=4){
-		bombSize+=1;
-	}else if(bombSize==5){
+function sizeBomb() {
+	if (bombSize <= 4) {
+		bombSize += 1;
+	} else if (bombSize == 5) {
 		clearInterval(timerSizeBomb);
 	}
 }
+
+
+function checkPoints() {
+	let msg = points;
+	points = { pointsarr: [] };
+	fetch("/points", {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(msg)
+	})
+		.then(res => res.json())
+}
+
+function getPointsCacheUser() {
+	fetch("/newPoints", {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(res => res.json())
+		.then(res => allPoints = res)
+		.then(resultPoints => console.log(resultPoints));
+
+	for (let h = 0; h < allPoints.newpointsarr.length; h++) {
+		if (allPoints.newpointsarr[h][0] == "rightPressed") {
+			rightPressed = true;
+			draw();
+			rightPressed = false;
+			allPoints.newpointsarr[h][0] = "";
+		} else if (allPoints.newpointsarr[h][0] == "leftPressed") {
+			leftPressed = true;
+			draw();
+			leftPressed = false;
+			allPoints.newpointsarr[h][0] = "";
+		} else if (allPoints.newpointsarr[h][0] == "upPressed") {
+			upPressed = true;
+			draw();
+			upPressed = false;
+			allPoints.newpointsarr[h][0] = "";
+		} else if (allPoints.newpointsarr[h][0] == "downPressed") {
+			downPressed = true;
+			draw();
+			downPressed = false;
+			allPoints.newpointsarr[h][0] = "";
+		}else if (allPoints.newpointsarr[h][0] == "spacePressed") {
+			spacePressed = true;
+			makeBomb();
+			spacePressed = false;
+			allPoints.newpointsarr[h][0] = "";
+		}
+
+	}
+
+}  
