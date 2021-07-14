@@ -17,10 +17,7 @@ var alive = true;
 var timerAlive = setInterval(itsAlive, 500);
 var timerSizeBomb = setInterval(sizeBomb, 30000);
 
-let points = { pointsarr: [] };
-let allPoints = { newpointsarr: [] };
-let timerId = setInterval(() => checkPoints(), 1500);
-let timer = setInterval(() => getPointsCacheUser(), 1000);
+
 
 var player = new Image();
 player.src = 'images/bluelow.png';
@@ -45,33 +42,42 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
 	if (e.keyCode == 39) {
-		points.pointsarr.push(["rightPressed", "true"]);
+		rightPressed = true;
+		wsreference.send(1);
+		draw();
 	}
 	else if (e.keyCode == 37) {
-		points.pointsarr.push(["leftPressed", "true"]);
+		leftPressed = true;
+		wsreference.send(2);
+		draw();
 	}
 	else if (e.keyCode == 38) {
-		points.pointsarr.push(["upPressed", "true"]);
+		upPressed = true;
+		wsreference.send(3);
+		draw();
 	}
 	else if (e.keyCode == 40) {
-		
+		downPressed = true;
+		wsreference.send(4);
+		draw();
 	}
 	else if (e.keyCode == 32) {
-		points.pointsarr.push(["spacePressed", "true"]);
-		
+		spacePressed = true;
+		wsreference.send(5);
+		makeBomb();
 	}
 }
 
-function makeBomb(){
+function makeBomb() {
 	if (bombInMap == false) {
-			var bomba = new Bomb(positionx, positiony);
-			arrayObjects[playerPositionArrayRow][playerPositionArrayColumn] = 2;
-			bombInMap = true;
-			bomba.bomb();
-			positionBombRow = playerPositionArrayRow;
-			positionBombColumn = playerPositionArrayColumn;
-			setTimeout(explosionBomb, 3000, bomba);
-		}
+		var bomba = new Bomb(positionx, positiony);
+		arrayObjects[playerPositionArrayRow][playerPositionArrayColumn] = 2;
+		bombInMap = true;
+		bomba.bomb();
+		positionBombRow = playerPositionArrayRow;
+		positionBombColumn = playerPositionArrayColumn;
+		setTimeout(explosionBomb, 3000, bomba);
+	}
 }
 
 function keyUpHandler(e) {
@@ -157,59 +163,70 @@ function sizeBomb() {
 	}
 }
 
-
-function checkPoints() {
-	let msg = points;
-	points = { pointsarr: [] };
-	fetch("/points", {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(msg)
-	})
-		.then(res => res.json())
+class BomberBattleChannel {
+	constructor(URL, callback) {
+		this.URL = URL;
+		this.wsocket = new WebSocket(URL);
+		this.wsocket.onopen = (evt) => this.onOpen(evt);
+		this.wsocket.onmessage = (evt) => this.onMessage(evt);
+		this.wsocket.onerror = (evt) => this.onError(evt);
+		this.receivef = callback;
+	}
+	onOpen(evt) {
+		console.log("In onOpen", evt);
+	}
+	onMessage(evt) {
+		console.log("In onMessage", evt);
+		// Este if permite que el primer mensaje del servidor no se tenga en cuenta.
+		// El primer mensaje solo confirma que se estableció la conexión.
+		// De ahí en adelante intercambiaremos solo puntos(x,y) con el servidor
+		if (evt.data != "Connection established.") {
+			this.receivef(evt.data);
+		}
+	}
+	onError(evt) {
+		console.error("In onError", evt);
+	}
+	send(press) {
+		let msg = '{ "y": ' + (press) + "}";
+		console.log("sending: ", msg);
+		this.wsocket.send(msg);
+	}
 }
 
-function getPointsCacheUser() {
-	fetch("/newPoints", {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then(res => res.json())
-		.then(res => allPoints = res)
-		.then(resultPoints => console.log(resultPoints));
 
-	for (let h = 0; h < allPoints.newpointsarr.length; h++) {
-		if (allPoints.newpointsarr[h][0] == "rightPressed") {
-			rightPressed = true;
-			draw();
-			rightPressed = false;
-			allPoints.newpointsarr[h][0] = "";
-		} else if (allPoints.newpointsarr[h][0] == "leftPressed") {
-			leftPressed = true;
-			draw();
-			leftPressed = false;
-			allPoints.newpointsarr[h][0] = "";
-		} else if (allPoints.newpointsarr[h][0] == "upPressed") {
-			upPressed = true;
-			draw();
-			upPressed = false;
-			allPoints.newpointsarr[h][0] = "";
-		} else if (allPoints.newpointsarr[h][0] == "downPressed") {
-			downPressed = true;
-			draw();
-			downPressed = false;
-			allPoints.newpointsarr[h][0] = "";
-		}else if (allPoints.newpointsarr[h][0] == "spacePressed") {
-			spacePressed = true;
-			makeBomb();
-			spacePressed = false;
-			allPoints.newpointsarr[h][0] = "";
-		}
 
-	}
 
-}  
+var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
+		(msg) => {
+			var obj = JSON.parse(msg);
+			console.log("On func call back ", msg);
+			if (obj.y==1) {
+				rightPressed = true;
+				draw();
+				rightPressed = false;
+			} else if (obj.y == 2) {
+				leftPressed = true;
+				draw();
+				leftPressed = false;
+			} else if (obj.y == 3) {
+				upPressed = true;
+				draw();
+				upPressed = false;
+			} else if (obj.y == 4) {
+				downPressed = true;
+				draw();
+				downPressed = false;
+			} else if (obj.y == 5) {
+				spacePressed = true;
+				makeBomb();
+				spacePressed = false;
+			}
+
+		});
+let wsreference = comunicationWS;
+
+function BomberBattleServiceURL() {
+	return 'ws://localhost:8080/bomberService';
+}
+
