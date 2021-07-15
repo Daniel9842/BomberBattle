@@ -8,7 +8,6 @@ class Boom {
 		ctx4.drawImage(explosion, columnBoom * 60, rowBoom * 60, 60, 60);
 		arrayExplosion[rowBoom][columnBoom] = 1;
 		for (let a = 0; a < bombSize; a++) {
-
 			if (goRigth && columnBoom < columnsMap) {
 				if(arrayObjects[rowBoom][columnBoom + 1] == 0){
 					ctx4.drawImage(explosion, (columnBoom + a) * 60, rowBoom * 60, 60, 60);
@@ -64,7 +63,6 @@ class Boom {
 				arrayExplosion[rowBoom - b][columnBoom] = 0;
 			}
 		}
-
 		goUp = true;
 		goDown = true;
 		goLeft = true;

@@ -1,11 +1,13 @@
 class Player {
-	constructor(positionX, positionY,playerRow,playerColumn) {
+	constructor(positionX, positionY, playerRow, playerColumn) {
 		this.positionX = positionX;
 		this.positionY = positionY;
 		this.playerRow = playerRow;
 		this.playerColumn = playerColumn;
 		this.bombRowPlayer;
 		this.bombColumnPlayer;
+		this.alive = true;
+		this.bombInMap = false;
 	}
 	get posX() {
 		return this.positionX;
@@ -27,43 +29,76 @@ class Player {
 		return this.bombColumnPlayer;
 	}
 
-	setBombRow(bombRowNumber){
+	get playerAlive() {
+		return this.alive;
+	}
+
+	get bombPlayerInMap() {
+		return this.bombInMap;
+	}
+
+	setBombPlayerInMap(bombMap) {
+		this.bombInMap = bombMap;
+	}
+
+	setPlayerAlive() {
+		this.alive = false;
+	}
+
+	setBombRow(bombRowNumber) {
 		this.bombRowPlayer = bombRowNumber;
 	}
 
-	setBombColumn(bombColumnNumber){
+	setBombColumn(bombColumnNumber) {
 		this.bombColumnPlayer = bombColumnNumber;
 	}
 
-	setPositionXColumn(numberX,symbolX){
-		if(symbolX=="+"){
-			this.positionX+=numberX;
-			this.playerColumn+=1;
-		}else if(symbolX=="-"){
-			this.positionX-=numberX;
-			this.playerColumn-=1;
+
+	drawPlayer() {
+		if (rightPressed && player1.playerColumnArray < columnsMap && (arrayObjects[player1.playerRowArray][player1.playerColumnArray + 1] == 0)) {
+			this.positionX += 60;
+			this.playerColumn += 1;
 		}
-		
+
+		else if (leftPressed && player1.playerColumnArray > 0 && (arrayObjects[player1.playerRowArray][player1.playerColumnArray - 1] == 0)) {
+			this.positionX -= 60;
+			this.playerColumn -= 1;
+		} else if (upPressed && player1.playerRowArray > 0 && (arrayObjects[player1.playerRowArray - 1][player1.playerColumnArray] == 0)) {
+			this.positionY -= 60;
+			this.playerRow -= 1;
+
+		} else if (downPressed && player1.playerRowArray < rowsMap && (arrayObjects[player1.playerRowArray + 1][player1.playerColumnArray] == 0)) {
+			this.positionY += 60;
+			this.playerRow += 1;
+		}
+
 	}
 
-	setPositionYRow(numberY,symbolY){
-		if(symbolY=="+"){
-			this.positionY+=numberY;
-			this.playerRow+=1;
-		}else if(symbolY=="-"){
-			this.positionY-=numberY;
-			this.playerRow-=1;
+	makeBomb() {
+		if (this.bombInMap == false && this.alive) {
+			this.bomba = new Bomb(this.playerRow, this.playerColumn, this.positionX, this.positionY);
+			arrayObjects[this.playerRow][this.playerColumn] = 2;
+			this.bombRowPlayer = this.playerRow;
+			this.bombColumnPlayer = this.playerColumn;
+			this.bombInMap = true;
+			this.bomba.bomb();
+			setTimeout(this.explosionBomb, 3000, this.bomba, this.playerRow, this.playerColumn);
 		}
 	}
 
+	explosionBomb(bomba, rowBombEraser, columnBombEraser) {
+		bomba.eraser();
+		this.bombInMap = false;
+		arrayObjects[rowBombEraser][columnBombEraser] = 0;
+	}
 }
 
 var imageWidth = 35;
 var imageHeight = 55;
 var player1 = new Player(12, 2, 0, 0);
-var player2 = new Player( 14 * 60 + 12, 2,0,14);
-var player3 = new Player( 12, 8 * 60 + 2,8,0);
-var player4 = new Player(14 * 60 + 12, 8 * 60 + 2,8,14);
+var player2 = new Player(14 * 60 + 12, 2, 0, 14);
+var player3 = new Player(12, 8 * 60 + 2, 8, 0);
+var player4 = new Player(14 * 60 + 12, 8 * 60 + 2, 8, 14);
 
 var playerOne = new Image();
 playerOne.src = 'images/white.png';
@@ -74,19 +109,19 @@ playerOne.onload = function () {
 var playerTwo = new Image();
 playerTwo.src = 'images/yellow.png';
 playerTwo.onload = function () {
-	ctx2.drawImage(playerTwo,player2.posX, player2.posY, imageWidth, imageHeight);
+	ctx2.drawImage(playerTwo, player2.posX, player2.posY, imageWidth, imageHeight);
 }
 
 var playerThree = new Image();
 playerThree.src = 'images/pink.png';
 playerThree.onload = function () {
-	ctx2.drawImage(playerThree,player3.posX, player3.posY, imageWidth, imageHeight);
+	ctx2.drawImage(playerThree, player3.posX, player3.posY, imageWidth, imageHeight);
 }
 
 var playerFour = new Image();
 playerFour.src = 'images/gray.png';
 playerFour.onload = function () {
-	ctx2.drawImage(playerFour,player4.posX, player4.posY, imageWidth, imageHeight);
+	ctx2.drawImage(playerFour, player4.posX, player4.posY, imageWidth, imageHeight);
 }
 
 
