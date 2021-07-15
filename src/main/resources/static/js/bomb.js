@@ -1,23 +1,16 @@
 class Bomb {
-	constructor(playerPositionArrayRow, playerPositionArrayColumn) {
+	constructor(playerPositionArrayRow, playerPositionArrayColumn,mapPosX,mapPosY) {
 		this.playerPositionArrayRow = playerPositionArrayRow;
 		this.playerPositionArrayColumn = playerPositionArrayColumn;
-
-	}
-
-	get rowPosition() {
-		return this.rowPosition();
-	}
-
-	get columnPosition() {
-		return this.columnPosition();
+		this.mapPosX = mapPosX;
+		this.mapPosY = mapPosY;
 	}
 
 	bomb() {
-		ctx3.drawImage(bombi, this.playerPositionArrayRow, this.playerPositionArrayColumn, 35, 55);
+		ctx3.drawImage(bombi, this.mapPosX, this.mapPosY, 35, 55);
 		var explosion = new Boom(this.playerPositionArrayRow,this.playerPositionArrayColumn);
-		setTimeout(explosion.boom,2000);
-		setTimeout(explosion.eraser,3100);
+		setTimeout(explosion.boom,2000,this.playerPositionArrayRow,this.playerPositionArrayColumn);
+		setTimeout(explosion.eraser,3100,this.playerPositionArrayRow,this.playerPositionArrayColumn);
 	}
 
 	eraser(){

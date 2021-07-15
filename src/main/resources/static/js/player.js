@@ -1,35 +1,15 @@
-var positionx = 12;
-var positiony = 2;
 const size = 60;
 const rowsMap = 8;
 const columnsMap = 14;
-var playerPositionArrayRow = 0;
-var playerPositionArrayColumn = 0;
 var bombSize = 2;
 var bombInMap = false;
 var goUp = true;
 var goDown = true;
 var goLeft = true;
 var goRigth = true;
-var positionBombRow;
-var positionBombColumn;
 var alive = true;
 var timerAlive = setInterval(itsAlive, 500);
 var timerSizeBomb = setInterval(sizeBomb, 30000);
-
-
-
-var player = new Image();
-player.src = 'images/bluelow.png';
-player.onload = function () {
-	ctx2.drawImage(player, positionx, positiony, 35, 55);
-}
-
-var player2 = new Image();
-player2.src = 'images/white.png';
-player2.onload = function () {
-	ctx2.drawImage(player2, 14 * 60, 8 * 60, 35, 55);
-}
 
 var rightPressed = false;
 var leftPressed = false;
@@ -70,12 +50,12 @@ function keyDownHandler(e) {
 
 function makeBomb() {
 	if (bombInMap == false) {
-		var bomba = new Bomb(positionx, positiony);
-		arrayObjects[playerPositionArrayRow][playerPositionArrayColumn] = 2;
+		var bomba = new Bomb(player1.playerRowArray,player1.playerColumnArray,player1.posX, player1.posY);
+		arrayObjects[player1.playerRowArray][player1.playerColumnArray] = 2;
+		player1.setBombRow(player1.playerRowArray);
+		player1.setBombColumn(player1.playerColumnArray);
 		bombInMap = true;
 		bomba.bomb();
-		positionBombRow = playerPositionArrayRow;
-		positionBombColumn = playerPositionArrayColumn;
 		setTimeout(explosionBomb, 3000, bomba);
 	}
 }
@@ -100,37 +80,49 @@ function keyUpHandler(e) {
 
 function draw() {
 
-	if (rightPressed && playerPositionArrayColumn < columnsMap && (arrayObjects[playerPositionArrayRow][playerPositionArrayColumn + 1] == 0)) {
-		playerPositionArrayColumn += 1;
-		positionx += size;
+	if (rightPressed && player1.playerColumnArray < columnsMap && (arrayObjects[player1.playerRowArray][player1.playerColumnArray + 1] == 0)) {
+		player1.setPositionXColumn(size,"+");
 	}
 
-	else if (leftPressed && playerPositionArrayColumn > 0 && (arrayObjects[playerPositionArrayRow][playerPositionArrayColumn - 1] == 0)) {
-		playerPositionArrayColumn -= 1;
-		positionx -= size;
-	} else if (upPressed && playerPositionArrayRow > 0 && (arrayObjects[playerPositionArrayRow - 1][playerPositionArrayColumn] == 0)) {
-		playerPositionArrayRow -= 1;
-		positiony -= size;
+	else if (leftPressed && player1.playerColumnArray > 0 && (arrayObjects[player1.playerRowArray][player1.playerColumnArray - 1] == 0)) {
+		player1.setPositionXColumn(size,"-");
+	} else if (upPressed && player1.playerRowArray > 0 && (arrayObjects[player1.playerRowArray - 1][player1.playerColumnArray] == 0)) {
+		player1.setPositionYRow(size,"-");
 
-	} else if (downPressed && playerPositionArrayRow < rowsMap && (arrayObjects[playerPositionArrayRow + 1][playerPositionArrayColumn] == 0)) {
-		playerPositionArrayRow += 1;
-		positiony += size;
+	} else if (downPressed && player1.playerRowArray < rowsMap && (arrayObjects[player1.playerRowArray + 1][player1.playerColumnArray] == 0)) {
+		player1.setPositionYRow(size,"+");
 	}
 
 	ctx2.clearRect(0, 0, 900, 540);
 
-	var player = new Image();
-	player.src = 'images/bluelow.png';
-	player.onload = function () {
-		ctx2.drawImage(player, positionx, positiony, 35, 55);
+	var playerOne = new Image();
+	playerOne.src = 'images/white.png';
+	playerOne.onload = function () {
+		ctx2.drawImage(playerOne, player1.posX, player1.posY, imageWidth, imageHeight);
 
 	}
 
-	var player2 = new Image();
-	player2.src = 'images/white.png';
-	player2.onload = function () {
-		ctx2.drawImage(player2, 14 * 60, 8 * 60, 35, 55);
+	var playerTwo = new Image();
+	playerTwo.src = 'images/yellow.png';
+	playerTwo.onload = function () {
+		ctx2.drawImage(playerTwo,player2.posX, player2.posY, imageWidth, imageHeight);
+
 	}
+
+	var playerThree = new Image();
+	playerThree.src = 'images/pink.png';
+	playerThree.onload = function () {
+		ctx2.drawImage(playerThree,player3.posX, player3.posY, imageWidth, imageHeight);
+
+	}
+
+	var playerFour = new Image();
+	playerFour.src = 'images/gray.png';
+	playerFour.onload = function () {
+		ctx2.drawImage(playerFour, player4.posX, player4.posY, imageWidth, imageHeight);
+
+	}
+
 
 
 }
@@ -139,14 +131,13 @@ function draw() {
 function explosionBomb(bomba) {
 	bomba.eraser();
 	bombInMap = false;
-	arrayObjects[positionBombRow][positionBombColumn] = 0;
-
+	arrayObjects[player1.playerRowBomb][player1.playerColumnBomb] = 0;
 }
 
 function itsAlive() {
 	for (let z = 0; z < rows; z++) {
 		for (let x = 0; x < columns; x++) {
-			if (arrayExplosion[playerPositionArrayRow][playerPositionArrayColumn] != 0) {
+			if (arrayExplosion[player1.playerRowArray][player1.playerColumnArray] != 0) {
 				alive = false;
 				clearInterval(timerAlive);
 			}
@@ -229,4 +220,5 @@ let wsreference = comunicationWS;
 function BomberBattleServiceURL() {
 	return 'ws://localhost:8080/bomberService';
 }
+
 

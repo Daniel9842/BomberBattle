@@ -1,44 +1,41 @@
 class Boom {
-	constructor(rowBoom, columnBoom) {
-		this.rowBoom = rowBoom;
-		this.columnBoom = columnBoom;
+	constructor(playerPositionArrayRow, playerPositionArrayColumn) {
+		this.playerPositionArrayRow = playerPositionArrayRow;
+		this.playerPositionArrayColumn = playerPositionArrayColumn;
 	}
-	boom() {
-		ctx4.drawImage(explosion, this.positionBombColumn * 60, this.positionBombRow * 60, 60, 60);
-		arrayExplosion[positionBombRow][positionBombColumn] = 1;
+
+	boom(rowBoom,columnBoom) {
+		ctx4.drawImage(explosion, columnBoom * 60, rowBoom * 60, 60, 60);
+		arrayExplosion[rowBoom][columnBoom] = 1;
 		for (let a = 0; a < bombSize; a++) {
 
-			if (goRigth && this.positionBombColumn < columnsMap) {
-				if(arrayObjects[this.positionBombRow][this.positionBombColumn + 1] == 0){
-					ctx4.drawImage(explosion, (this.positionBombColumn + a) * 60, this.positionBombRow * 60, 60, 60);
-					arrayExplosion[positionBombRow][positionBombColumn + a] = 1;
-				}else if(arrayObjects[this.positionBombRow][this.positionBombColumn + 1] == 5){
-					arrayWalls[this.positionBombRow][this.positionBombColumn + 1] =0;
-					//eraserWalls(this.positionBombRow,this.positionBombColumn);
+			if (goRigth && columnBoom < columnsMap) {
+				if(arrayObjects[rowBoom][columnBoom + 1] == 0){
+					ctx4.drawImage(explosion, (columnBoom + a) * 60, rowBoom * 60, 60, 60);
+					arrayExplosion[rowBoom][columnBoom + a] = 1;
 				}
-				
 			} else {
 				goRigth = false;
 			}
-			if (this.positionBombColumn > 0 && (arrayObjects[this.positionBombRow][this.positionBombColumn - 1] == 0)) {
-				ctx4.drawImage(explosion, (this.positionBombColumn - a) * 60, this.positionBombRow * 60, 60, 60);
-				arrayExplosion[positionBombRow][positionBombColumn - a] = 1;
+			if (columnBoom > 0 && (arrayObjects[rowBoom][columnBoom - 1] == 0)) {
+				ctx4.drawImage(explosion, (columnBoom - a) * 60, rowBoom * 60, 60, 60);
+				arrayExplosion[rowBoom][columnBoom - a] = 1;
 			} else {
 				goLeft = false;
 			}
-			if (this.positionBombRow < rowsMap && (arrayObjects[this.positionBombRow + 1][this.positionBombColumn] == 0)) {
-				ctx4.drawImage(explosion, this.positionBombColumn * 60, (this.positionBombRow + a) * 60, 60, 60);
-				if((positionBombRow + a)<rowsMap){
-					arrayExplosion[positionBombRow + a][positionBombColumn] = 1;
+			if (rowBoom < rowsMap && (arrayObjects[rowBoom + 1][columnBoom] == 0)) {
+				ctx4.drawImage(explosion, columnBoom * 60, (rowBoom + a) * 60, 60, 60);
+				if((rowBoom + a)<rowsMap){
+					arrayExplosion[rowBoom + a][columnBoom] = 1;
 				}
 				
 			} else {
 				goDown = false;
 			}
-			if (this.positionBombRow > 0 && (arrayObjects[this.positionBombRow - 1][this.positionBombColumn] == 0)) {
-				ctx4.drawImage(explosion, this.positionBombColumn * 60, (this.positionBombRow - a) * 60, 60, 60);
-				if((positionBombRow - a)>rowsMap){
-					arrayExplosion[positionBombRow - a][positionBombColumn] = 1;
+			if (rowBoom > 0 && (arrayObjects[rowBoom - 1][columnBoom] == 0)) {
+				ctx4.drawImage(explosion, columnBoom * 60, (rowBoom - a) * 60, 60, 60);
+				if((rowBoom - a)>rowsMap){
+					arrayExplosion[rowBoom - a][columnBoom] = 1;
 				}
 	
 			} else {
@@ -49,21 +46,22 @@ class Boom {
 		}
 
 	}
-	eraser() {
+
+	eraser(rowBoom,columnBoom) {
 		ctx4.clearRect(0, 0, 900, 540);
-		arrayExplosion[positionBombRow][positionBombColumn] = 0;
+		arrayExplosion[rowBoom][columnBoom] = 0;
 		for (var b = 0; b < bombSize; b++) {
-			if (this.positionBombColumn < columnsMap) {
-				arrayExplosion[positionBombRow][positionBombColumn + b] = 0;
+			if (columnBoom < columnsMap) {
+				arrayExplosion[rowBoom][columnBoom + b] = 0;
 			}
-			if (this.positionBombColumn > 0) {
-				arrayExplosion[positionBombRow][positionBombColumn - b] = 0;
+			if (columnBoom > 0) {
+				arrayExplosion[rowBoom][columnBoom - b] = 0;
 			}
-			if (this.positionBombRow < rowsMap && (positionBombRow + b)<rowsMap) {
-				arrayExplosion[positionBombRow + b][positionBombColumn] = 0;
+			if (rowBoom < rowsMap && (rowBoom + b)<rowsMap) {
+				arrayExplosion[rowBoom + b][columnBoom] = 0;
 			}
-			if (this.positionBombRow > 0 && (positionBombRow - b)>rowsMap) {
-				arrayExplosion[positionBombRow - b][positionBombColumn] = 0;
+			if (rowBoom > 0 && (rowBoom - b)>rowsMap) {
+				arrayExplosion[rowBoom - b][columnBoom] = 0;
 			}
 		}
 
@@ -72,5 +70,6 @@ class Boom {
 		goLeft = true;
 		goRigth = true;
 	}
+	
 
 }

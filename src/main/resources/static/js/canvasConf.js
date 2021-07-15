@@ -32,3 +32,6 @@ bombi.src = 'images/bomb.png';
 var explosion = new Image();
 explosion.src = 'images/kaboom.png';
 
+
+
+
