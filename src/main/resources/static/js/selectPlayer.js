@@ -55,23 +55,27 @@ class Player {
 
 
 	drawPlayer() {
-		if (rightPressed && player1.playerColumnArray < columnsMap && (arrayObjects[player1.playerRowArray][player1.playerColumnArray + 1] == 0)) {
+		if (rightPressed && this.playerColumn < columnsMap && (arrayObjects[this.playerRow][this.playerColumn + 1] == 0)) {
 			this.positionX += 60;
 			this.playerColumn += 1;
 		}
 
-		else if (leftPressed && player1.playerColumnArray > 0 && (arrayObjects[player1.playerRowArray][player1.playerColumnArray - 1] == 0)) {
+		else if (leftPressed && this.playerColumn > 0 && (arrayObjects[this.playerRow][this.playerColumn - 1] == 0)) {
 			this.positionX -= 60;
 			this.playerColumn -= 1;
-		} else if (upPressed && player1.playerRowArray > 0 && (arrayObjects[player1.playerRowArray - 1][player1.playerColumnArray] == 0)) {
+		} else if (upPressed && this.playerRow > 0 && (arrayObjects[this.playerRow - 1][this.playerColumn] == 0)) {
 			this.positionY -= 60;
 			this.playerRow -= 1;
 
-		} else if (downPressed && player1.playerRowArray < rowsMap && (arrayObjects[player1.playerRowArray + 1][player1.playerColumnArray] == 0)) {
+		} else if (downPressed && this.playerRow < rowsMap && (arrayObjects[this.playerRow + 1][this.playerColumn] == 0)) {
 			this.positionY += 60;
 			this.playerRow += 1;
 		}
 
+	}
+	explosionBomb(bomba, rowBombEraser, columnBombEraser) {
+		bomba.eraser();
+		arrayObjects[rowBombEraser][columnBombEraser] = 0;
 	}
 
 	makeBomb() {
@@ -86,11 +90,7 @@ class Player {
 		}
 	}
 
-	explosionBomb(bomba, rowBombEraser, columnBombEraser) {
-		bomba.eraser();
-		this.bombInMap = false;
-		arrayObjects[rowBombEraser][columnBombEraser] = 0;
-	}
+	
 }
 
 var imageWidth = 35;

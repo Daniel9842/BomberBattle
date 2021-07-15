@@ -8,6 +8,9 @@ var goLeft = true;
 var goRigth = true;
 var timerAlive = setInterval(itsAlive, 500);
 var timerSizeBomb = setInterval(sizeBomb, 30000);
+var players = [1, 2, 3, 4];
+var myPlayer = 0;
+var lastShift = 0;
 
 var rightPressed = false;
 var leftPressed = false;
@@ -18,32 +21,46 @@ var spacePressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+
 function keyDownHandler(e) {
+	if (myPlayer == 0) {
+		myPlayer = players[0];
+	}
 	if (e.keyCode == 39) {
 		rightPressed = true;
-		wsreference.send(1);
-		draw();
+		wsreference.send(1, myPlayer);
+		draw(myPlayer);
 	}
 	else if (e.keyCode == 37) {
 		leftPressed = true;
-		wsreference.send(2);
-		draw();
+		wsreference.send(2, myPlayer);
+		draw(myPlayer);
 	}
 	else if (e.keyCode == 38) {
 		upPressed = true;
-		wsreference.send(3);
-		draw();
+		wsreference.send(3, myPlayer);
+		draw(myPlayer);
 	}
 	else if (e.keyCode == 40) {
 		downPressed = true;
-		wsreference.send(4);
-		draw();
+		wsreference.send(4, myPlayer);
+		draw(myPlayer);
 	}
 	else if (e.keyCode == 32) {
 		spacePressed = true;
-		wsreference.send(5);
-		player1.makeBomb();
+		wsreference.send(5, myPlayer);
+		if (myPlayer == 1) {
+			player1.makeBomb();
+		} else if (myPlayer == 2) {
+			player2.makeBomb();
+		} else if (myPlayer == 3) {
+			player3.makeBomb();
+		} else if (myPlayer == 4) {
+			player4.makeBomb();
+		}
+
 	}
+
 }
 
 
@@ -65,8 +82,31 @@ function keyUpHandler(e) {
 	}
 }
 
-function draw() {
-	player1.drawPlayer();
+
+function orderBomb(orderBombPlayer) {
+	if (orderBombPlayer == 1) {
+		player1.makeBomb();
+	} else if (orderBombPlayer == 2) {
+		player2.makeBomb();
+	} else if (orderBombPlayer == 3) {
+		player3.makeBomb();
+	} else if (orderBombPlayer == 4) {
+		player4.makeBomb();
+	}
+}
+
+function draw(playerSelect) {
+
+	if (playerSelect == 1) {
+		player1.drawPlayer();
+	} else if (playerSelect == 2) {
+		player2.drawPlayer();
+	} else if (playerSelect == 3) {
+		player3.drawPlayer();
+	} else if (playerSelect == 4) {
+		player4.drawPlayer();
+	}
+
 	ctx2.clearRect(0, 0, 900, 540);
 
 	if (player1.playerAlive) {
@@ -78,27 +118,33 @@ function draw() {
 		}
 	}
 
+	if (player2.playerAlive) {
+		var playerTwo = new Image();
+		playerTwo.src = 'images/yellow.png';
+		playerTwo.onload = function () {
+			ctx2.drawImage(playerTwo, player2.posX, player2.posY, imageWidth, imageHeight);
 
-	var playerTwo = new Image();
-	playerTwo.src = 'images/yellow.png';
-	playerTwo.onload = function () {
-		ctx2.drawImage(playerTwo, player2.posX, player2.posY, imageWidth, imageHeight);
+		}
+	}
+	if (player3.playerAlive) {
+		var playerThree = new Image();
+		playerThree.src = 'images/pink.png';
+		playerThree.onload = function () {
+			ctx2.drawImage(playerThree, player3.posX, player3.posY, imageWidth, imageHeight);
 
+		}
+	}
+	if (player4.playerAlive) {
+		var playerFour = new Image();
+		playerFour.src = 'images/gray.png';
+		playerFour.onload = function () {
+			ctx2.drawImage(playerFour, player4.posX, player4.posY, imageWidth, imageHeight);
+
+		}
 	}
 
-	var playerThree = new Image();
-	playerThree.src = 'images/pink.png';
-	playerThree.onload = function () {
-		ctx2.drawImage(playerThree, player3.posX, player3.posY, imageWidth, imageHeight);
 
-	}
 
-	var playerFour = new Image();
-	playerFour.src = 'images/gray.png';
-	playerFour.onload = function () {
-		ctx2.drawImage(playerFour, player4.posX, player4.posY, imageWidth, imageHeight);
-
-	}
 
 }
 
@@ -108,8 +154,19 @@ function itsAlive() {
 		for (let x = 0; x < columns; x++) {
 			if (arrayExplosion[player1.playerRowArray][player1.playerColumnArray] != 0) {
 				player1.setPlayerAlive();
-				clearInterval(timerAlive);
-				draw();
+				draw(1);
+			}
+			if (arrayExplosion[player2.playerRowArray][player2.playerColumnArray] != 0) {
+				player2.setPlayerAlive();
+				draw(2);
+			}
+			if (arrayExplosion[player3.playerRowArray][player3.playerColumnArray] != 0) {
+				player3.setPlayerAlive();
+				draw(3);
+			}
+			if (arrayExplosion[player4.playerRowArray][player4.playerColumnArray] != 0) {
+				player4.setPlayerAlive();
+				draw(4);
 			}
 		}
 	}
@@ -138,9 +195,6 @@ class BomberBattleChannel {
 	}
 	onMessage(evt) {
 		console.log("In onMessage", evt);
-		// Este if permite que el primer mensaje del servidor no se tenga en cuenta.
-		// El primer mensaje solo confirma que se estableció la conexión.
-		// De ahí en adelante intercambiaremos solo puntos(x,y) con el servidor
 		if (evt.data != "Connection established.") {
 			this.receivef(evt.data);
 		}
@@ -148,8 +202,8 @@ class BomberBattleChannel {
 	onError(evt) {
 		console.error("In onError", evt);
 	}
-	send(press) {
-		let msg = '{ "y": ' + (press) + "}";
+	send(press, player) {
+		let msg = '{ "y": ' + (press) + ', "x": ' + (player) + "}";
 		console.log("sending: ", msg);
 		this.wsocket.send(msg);
 	}
@@ -159,25 +213,27 @@ var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
 	(msg) => {
 		var obj = JSON.parse(msg);
 		console.log("On func call back ", msg);
+		changePlayer(obj.x);
 		if (obj.y == 1) {
 			rightPressed = true;
+			selectDraw(obj.x);
 			draw();
 			rightPressed = false;
 		} else if (obj.y == 2) {
 			leftPressed = true;
-			draw();
+			selectDraw(obj.x);
 			leftPressed = false;
 		} else if (obj.y == 3) {
 			upPressed = true;
-			draw();
+			selectDraw(obj.x);
 			upPressed = false;
 		} else if (obj.y == 4) {
 			downPressed = true;
-			draw();
+			selectDraw(obj.x);
 			downPressed = false;
 		} else if (obj.y == 5) {
 			spacePressed = true;
-			makeBomb();
+			orderBomb(obj.x);
 			spacePressed = false;
 		}
 
@@ -188,4 +244,29 @@ function BomberBattleServiceURL() {
 	return 'ws://localhost:8080/bomberService';
 }
 
+function changePlayer(playersMessage) {
+	if (playersMessage == 1 && myPlayer == 0 && lastShift != playersMessage) {
+		lastShift = playersMessage;
+		players.shift();
+	} else if (playersMessage == 2 && myPlayer == 0 && lastShift != playersMessage) {
+		lastShift = playersMessage;
+		players.shift();
+	} else if (playersMessage == 3 && myPlayer == 0 && lastShift != playersMessage) {
+		lastShift = playersMessage;
+		players.shift();
+	}
+}
 
+
+
+function selectDraw(playersMessages) {
+	if (playersMessages == 1) {
+		draw(1);
+	} else if (playersMessages == 2) {
+		draw(2);
+	} else if (playersMessages == 3) {
+		draw(3);
+	} else if (playersMessages == 4) {
+		draw(4);
+	}
+}
