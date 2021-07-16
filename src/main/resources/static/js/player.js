@@ -51,12 +51,16 @@ function keyDownHandler(e) {
 		wsreference.send(5, myPlayer);
 		if (myPlayer == 1) {
 			player1.makeBomb();
+			setTimeout(setStateBomb, 3000,myPlayer);
 		} else if (myPlayer == 2) {
 			player2.makeBomb();
+			setTimeout(setStateBomb, 3000,myPlayer);
 		} else if (myPlayer == 3) {
 			player3.makeBomb();
+			setTimeout(setStateBomb, 3000,myPlayer);
 		} else if (myPlayer == 4) {
 			player4.makeBomb();
+			setTimeout(setStateBomb, 3000,myPlayer);
 		}
 
 	}
@@ -86,12 +90,16 @@ function keyUpHandler(e) {
 function orderBomb(orderBombPlayer) {
 	if (orderBombPlayer == 1) {
 		player1.makeBomb();
+		setTimeout(setStateBomb, 3000,orderBombPlayer);
 	} else if (orderBombPlayer == 2) {
 		player2.makeBomb();
+		setTimeout(setStateBomb, 3000,orderBombPlayer);
 	} else if (orderBombPlayer == 3) {
 		player3.makeBomb();
+		setTimeout(setStateBomb, 3000,orderBombPlayer);
 	} else if (orderBombPlayer == 4) {
 		player4.makeBomb();
+		setTimeout(setStateBomb, 3000,orderBombPlayer);
 	}
 }
 
@@ -171,6 +179,18 @@ function itsAlive() {
 		}
 	}
 
+}
+function setStateBomb(playerN){
+	if(playerN==1){
+		console.log("true");
+		player1.setBombPlayerInMap(false);
+	}else if(playerN==2){
+		player2.setBombPlayerInMap(false);
+	}else if(playerN==3){
+		player3.setBombPlayerInMap(false);
+	} else if(playerN==4){
+		player4.setBombPlayerInMap(false);
+	}  
 }
 
 function sizeBomb() {

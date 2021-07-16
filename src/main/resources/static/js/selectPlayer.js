@@ -4,10 +4,11 @@ class Player {
 		this.positionY = positionY;
 		this.playerRow = playerRow;
 		this.playerColumn = playerColumn;
+		this.bombInMap = false;
 		this.bombRowPlayer;
 		this.bombColumnPlayer;
 		this.alive = true;
-		this.bombInMap = false;
+		
 	}
 	get posX() {
 		return this.positionX;
@@ -84,7 +85,7 @@ class Player {
 			arrayObjects[this.playerRow][this.playerColumn] = 2;
 			this.bombRowPlayer = this.playerRow;
 			this.bombColumnPlayer = this.playerColumn;
-			this.bombInMap = true;
+			this.bombInMap=true;
 			this.bomba.bomb();
 			setTimeout(this.explosionBomb, 3000, this.bomba, this.playerRow, this.playerColumn);
 		}
@@ -95,10 +96,10 @@ class Player {
 
 var imageWidth = 35;
 var imageHeight = 55;
-var player1 = new Player(12, 2, 0, 0);
-var player2 = new Player(14 * 60 + 12, 2, 0, 14);
-var player3 = new Player(12, 8 * 60 + 2, 8, 0);
-var player4 = new Player(14 * 60 + 12, 8 * 60 + 2, 8, 14);
+var player1 = new Player(12, 2, 0, 0,false);
+var player2 = new Player(14 * 60 + 12, 2, 0, 14,false);
+var player3 = new Player(12, 8 * 60 + 2, 8, 0,false);
+var player4 = new Player(14 * 60 + 12, 8 * 60 + 2, 8, 14,false);
 
 var playerOne = new Image();
 playerOne.src = 'images/white.png';
