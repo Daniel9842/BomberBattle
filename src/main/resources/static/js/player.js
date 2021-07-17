@@ -6,8 +6,8 @@ var goUp = true;
 var goDown = true;
 var goLeft = true;
 var goRigth = true;
-var timerAlive = setInterval(itsAlive, 500);
-var timerSizeBomb = setInterval(sizeBomb, 30000);
+var timerAlive = setInterval(itsAlive, 50);
+var timerSizeBomb = setInterval(sizeBomb, 15000);
 var players = [1, 2, 3, 4];
 var myPlayer = 0;
 var lastShift = 0;
@@ -51,16 +51,16 @@ function keyDownHandler(e) {
 		wsreference.send(5, myPlayer);
 		if (myPlayer == 1) {
 			player1.makeBomb();
-			setTimeout(setStateBomb, 3000,myPlayer);
+			setTimeout(setStateBomb, 3000, myPlayer);
 		} else if (myPlayer == 2) {
 			player2.makeBomb();
-			setTimeout(setStateBomb, 3000,myPlayer);
+			setTimeout(setStateBomb, 3000, myPlayer);
 		} else if (myPlayer == 3) {
 			player3.makeBomb();
-			setTimeout(setStateBomb, 3000,myPlayer);
+			setTimeout(setStateBomb, 3000, myPlayer);
 		} else if (myPlayer == 4) {
 			player4.makeBomb();
-			setTimeout(setStateBomb, 3000,myPlayer);
+			setTimeout(setStateBomb, 3000, myPlayer);
 		}
 
 	}
@@ -90,16 +90,16 @@ function keyUpHandler(e) {
 function orderBomb(orderBombPlayer) {
 	if (orderBombPlayer == 1) {
 		player1.makeBomb();
-		setTimeout(setStateBomb, 3000,orderBombPlayer);
+		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	} else if (orderBombPlayer == 2) {
 		player2.makeBomb();
-		setTimeout(setStateBomb, 3000,orderBombPlayer);
+		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	} else if (orderBombPlayer == 3) {
 		player3.makeBomb();
-		setTimeout(setStateBomb, 3000,orderBombPlayer);
+		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	} else if (orderBombPlayer == 4) {
 		player4.makeBomb();
-		setTimeout(setStateBomb, 3000,orderBombPlayer);
+		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	}
 }
 
@@ -160,37 +160,50 @@ function draw(playerSelect) {
 function itsAlive() {
 	for (let z = 0; z < rows; z++) {
 		for (let x = 0; x < columns; x++) {
-			if (arrayExplosion[player1.playerRowArray][player1.playerColumnArray] != 0) {
+			if (arrayExplosion[player1.playerRowArray][player1.playerColumnArray] != 0 && player1.playerAlive) {
 				player1.setPlayerAlive();
 				draw(1);
+				
+				if (myPlayer == 1) {
+					window.location.href = "/index.html"
+				}
 			}
-			if (arrayExplosion[player2.playerRowArray][player2.playerColumnArray] != 0) {
+			if (arrayExplosion[player2.playerRowArray][player2.playerColumnArray] != 0 && player2.playerAlive) {
 				player2.setPlayerAlive();
 				draw(2);
+				if (myPlayer == 2) {
+					window.location.href = "/index.html"
+				}
 			}
-			if (arrayExplosion[player3.playerRowArray][player3.playerColumnArray] != 0) {
+			if (arrayExplosion[player3.playerRowArray][player3.playerColumnArray] != 0 && player3.playerAlive) {
 				player3.setPlayerAlive();
 				draw(3);
+				if (myPlayer == 3) {
+					window.location.href = "/index.html"
+				}
 			}
-			if (arrayExplosion[player4.playerRowArray][player4.playerColumnArray] != 0) {
+			if (arrayExplosion[player4.playerRowArray][player4.playerColumnArray] != 0 && player4.playerAlive) {
 				player4.setPlayerAlive();
 				draw(4);
+				if (myPlayer == 4) {
+					window.location.href = "/index.html"
+				}
 			}
 		}
 	}
 
 }
-function setStateBomb(playerN){
-	if(playerN==1){
-		console.log("true");
+function setStateBomb(playerN) {
+	if (playerN == 1) {
+
 		player1.setBombPlayerInMap(false);
-	}else if(playerN==2){
+	} else if (playerN == 2) {
 		player2.setBombPlayerInMap(false);
-	}else if(playerN==3){
+	} else if (playerN == 3) {
 		player3.setBombPlayerInMap(false);
-	} else if(playerN==4){
+	} else if (playerN == 4) {
 		player4.setBombPlayerInMap(false);
-	}  
+	}
 }
 
 function sizeBomb() {

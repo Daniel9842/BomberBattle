@@ -19,7 +19,15 @@ const ctx4 = canvasBoom.getContext('2d');
 canvasBoom.width = 900;
 canvasBoom.height = 540;
 
+const canvasMapBomb = document.getElementById('canvasMapBomb');
+const ctx5 = canvasMapBomb.getContext('2d');
+canvasMapBomb.width = 900;
+canvasMapBomb.height = 540;
 
+const canvasExplosionBomb = document.getElementById('canvasExplosionBomb');
+const ctx6 = canvasExplosionBomb.getContext('2d');
+canvasExplosionBomb.width = 900;
+canvasExplosionBomb.height = 540;
 
 const arrayMap = new Array();
 var arrayObjects = new Array();
@@ -32,6 +40,8 @@ bombi.src = 'images/bomb.png';
 var explosion = new Image();
 explosion.src = 'images/kaboom.png';
 
+var bombsMap = new Image();
+bombsMap.src = 'images/bombMap.png';
 
-
-
+var bombsExplosion = new Image();
+bombsExplosion.src = 'images/kaboom.png';
