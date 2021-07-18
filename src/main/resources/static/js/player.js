@@ -294,7 +294,7 @@ let wsreference = comunicationWS;
 
 function BomberBattleServiceURL() {
 	var host = window.location.host;
-	var url = 'wss://' + (host) + '/bbService';
+	var url = 'wss://' + (host) + '/bomberService';
 	console.log("URL Calculada: " + url);
 	return url;
 }
