@@ -163,8 +163,8 @@ function itsAlive() {
 			if (arrayExplosion[player1.playerRowArray][player1.playerColumnArray] != 0 && player1.playerAlive) {
 				player1.setPlayerAlive();
 				draw(1);
-				
 				if (myPlayer == 1) {
+					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
 				}
 			}
@@ -172,6 +172,7 @@ function itsAlive() {
 				player2.setPlayerAlive();
 				draw(2);
 				if (myPlayer == 2) {
+					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
 				}
 			}
@@ -179,6 +180,7 @@ function itsAlive() {
 				player3.setPlayerAlive();
 				draw(3);
 				if (myPlayer == 3) {
+					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
 				}
 			}
@@ -186,9 +188,26 @@ function itsAlive() {
 				player4.setPlayerAlive();
 				draw(4);
 				if (myPlayer == 4) {
+					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
 				}
 			}
+		}
+		if (myPlayer==1 && player1.playerAlive==true && player2.playerAlive==false && player3.playerAlive==false && player4.playerAlive==false) {
+			window.alert("Eres el ganador de la partida");
+			window.location.href = "/index.html"
+		}
+		if (myPlayer == 2 && player2.playerAlive==true && player1.playerAlive==false && player3.playerAlive==false && player4.playerAlive==false) {
+			window.alert("Eres el ganador de la partida");
+			window.location.href = "/index.html"
+		}
+		if (myPlayer == 3 && player3.playerAlive==true && player1.playerAlive==false && player2.playerAlive==false && player4.playerAlive==false) {
+			window.alert("Eres el ganador de la partida");
+			window.location.href = "/index.html"
+		}
+		if (myPlayer == 4 && player4.playerAlive==true && player1.playerAlive==false && player2.playerAlive==false && player3.playerAlive==false) {
+			window.alert("Eres el ganador de la partida");
+			window.location.href = "/index.html"
 		}
 	}
 
@@ -274,7 +293,7 @@ var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
 let wsreference = comunicationWS;
 
 function BomberBattleServiceURL() {
-	return 'wss://localhost:8080/bomberService';
+	return 'ws://localhost:8080/bomberService';
 }
 
 function changePlayer(playersMessage) {
