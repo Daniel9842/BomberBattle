@@ -274,7 +274,7 @@ var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
 let wsreference = comunicationWS;
 
 function BomberBattleServiceURL() {
-	return 'ws://localhost:8080/bomberService';
+	return 'wss://localhost:8080/bomberService';
 }
 
 function changePlayer(playersMessage) {
