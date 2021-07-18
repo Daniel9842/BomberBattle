@@ -163,34 +163,34 @@ function itsAlive() {
 			if (arrayExplosion[player1.playerRowArray][player1.playerColumnArray] != 0 && player1.playerAlive) {
 				player1.setPlayerAlive();
 				draw(1);
-				/*if (myPlayer == 1) {
+				if (myPlayer == 1) {
 					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
-				}*/
+				}
 			}
 			if (arrayExplosion[player2.playerRowArray][player2.playerColumnArray] != 0 && player2.playerAlive) {
 				player2.setPlayerAlive();
 				draw(2);
-				/*if (myPlayer == 2) {
+				if (myPlayer == 2) {
 					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
-				}*/
+				}
 			}
 			if (arrayExplosion[player3.playerRowArray][player3.playerColumnArray] != 0 && player3.playerAlive) {
 				player3.setPlayerAlive();
 				draw(3);
-				/*if (myPlayer == 3) {
+				if (myPlayer == 3) {
 					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
-				}*/
+				}
 			}
 			if (arrayExplosion[player4.playerRowArray][player4.playerColumnArray] != 0 && player4.playerAlive) {
 				player4.setPlayerAlive();
 				draw(4);
-				/*if (myPlayer == 4) {
+				if (myPlayer == 4) {
 					window.alert("Fuiste eliminado de la partida");
 					window.location.href = "/index.html"
-				}*/
+				}
 			}
 		}
 		/*if (myPlayer==1 && player1.playerAlive==true && player2.playerAlive==false && player3.playerAlive==false && player4.playerAlive==false) {
