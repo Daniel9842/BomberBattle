@@ -293,7 +293,10 @@ var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
 let wsreference = comunicationWS;
 
 function BomberBattleServiceURL() {
-	return 'wss://localhost:8080/bomberService';
+	var host = window.location.host;
+	var url = 'wss://' + (host) + '/bbService';
+	console.log("URL Calculada: " + url);
+	return url;
 }
 
 function changePlayer(playersMessage) {
