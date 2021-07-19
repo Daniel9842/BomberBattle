@@ -13,10 +13,10 @@ for (let i = 0; i < rows; i++) {
 	for (let j = 0; j < columns; j++) {
 		arrayMap[i][j] = new Image();
 		if (i % 2 != 0 && j % 2 != 0) {
-			arrayMap[i][j].src = "images/ladrillo.png";
+			arrayMap[i][j].src = "images/ladrillo.PNG";
 			arrayObjects[i][j] = 1; 
 		} else {
-			arrayMap[i][j].src = "images/pasto.png";
+			arrayMap[i][j].src = "images/pasto.PNG";
 			arrayObjects[i][j] = 0;
 		}
 		arrayExplosion[i][j] = 0; 
