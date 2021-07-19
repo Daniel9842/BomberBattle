@@ -1,7 +1,8 @@
 var position = 60;
 var rows = 9;
 var columns = 15;
-
+var imageWidth = 35;
+var imageHeight = 55;
 
 
 for (let i = 0; i < rows; i++) {
@@ -12,10 +13,10 @@ for (let i = 0; i < rows; i++) {
 	for (let j = 0; j < columns; j++) {
 		arrayMap[i][j] = new Image();
 		if (i % 2 != 0 && j % 2 != 0) {
-			arrayMap[i][j].src = "images/ladrillo.PNG";
+			arrayMap[i][j].src = "images/ladrillo.png";
 			arrayObjects[i][j] = 1; 
 		} else {
-			arrayMap[i][j].src = "images/pasto.PNG";
+			arrayMap[i][j].src = "images/pasto.png";
 			arrayObjects[i][j] = 0;
 		}
 		arrayExplosion[i][j] = 0; 

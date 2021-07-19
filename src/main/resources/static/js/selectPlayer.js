@@ -74,28 +74,26 @@ class Player {
 		}
 
 	}
-	explosionBomb(bomba, rowBombEraser, columnBombEraser) {
-		bomba.eraser();
+	explosionBomb(bomba, rowBombEraser, columnBombEraser,player) {
+		bomba.eraser(player);
 		arrayObjects[rowBombEraser][columnBombEraser] = 0;
 	}
 
-	makeBomb() {
+	makeBomb(bombPlay) {
 		if (this.bombInMap == false && this.alive) {
 			this.bomba = new Bomb(this.playerRow, this.playerColumn, this.positionX, this.positionY);
 			arrayObjects[this.playerRow][this.playerColumn] = 2;
 			this.bombRowPlayer = this.playerRow;
 			this.bombColumnPlayer = this.playerColumn;
 			this.bombInMap=true;
-			this.bomba.bomb();
-			setTimeout(this.explosionBomb, 3000, this.bomba, this.playerRow, this.playerColumn);
+			this.bomba.bomb(bombPlay);
+			setTimeout(this.explosionBomb, 3000, this.bomba, this.playerRow, this.playerColumn,bombPlay);
 		}
 	}
 
 	
 }
 
-var imageWidth = 35;
-var imageHeight = 55;
 var player1 = new Player(12, 2, 0, 0,false);
 var player2 = new Player(14 * 60 + 12, 2, 0, 14,false);
 var player3 = new Player(12, 8 * 60 + 2, 8, 0,false);

@@ -18,32 +18,32 @@ class BombsInMap {
 	}
 
 	drawBombRow() {
-		ctx5.drawImage(bombsMap, this.mapPosX, this.mapPosY, 35, 55);
+		ctx7.drawImage(bombsMap, this.mapPosX, this.mapPosY, imageWidth, imageHeight);
 		setTimeout(this.drawExplosionRow, 3000, this.mapPosX, this.mapPosY);
 	}
 
 	drawExplosionRow(posx, posy) {
-		ctx6.drawImage(bombsExplosion, posx - 12, posy - 2, 60, 60);
-		ctx6.drawImage(bombsExplosion, posx - 12 - 60, posy - 2, 60, 60);
+		ctx8.drawImage(bombsExplosion, posx - 12, posy - 2, position, position);
+		ctx8.drawImage(bombsExplosion, posx - 12 - position, posy - 2, position, position);
 	}
 
 	drawBombColumn() {
-		ctx5.drawImage(bombsMap, this.mapPosX, this.mapPosY, 35, 55);
+		ctx7.drawImage(bombsMap, this.mapPosX, this.mapPosY, imageWidth, imageHeight);
 		setTimeout(this.drawExplosionColumn, 3000, this.mapPosX, this.mapPosY);
 	}
 
 	drawExplosionColumn(posx, posy) {
-		ctx6.drawImage(bombsExplosion, posx - 12, posy - 2, 60, 60);
-		ctx6.drawImage(bombsExplosion, posx - 12, posy - 2 - 60, 60, 60);
+		ctx8.drawImage(bombsExplosion, posx - 12, posy - 2, position, position);
+		ctx8.drawImage(bombsExplosion, posx - 12, posy - 2 - position, position, position);
 	}
 
 	drawBombOne() {
-		ctx5.drawImage(bombsMap, this.mapPosX, this.mapPosY, 35, 55);
+		ctx7.drawImage(bombsMap, this.mapPosX, this.mapPosY, imageWidth, imageHeight);
 		setTimeout(this.drawExplosionOne, 3000, this.mapPosX, this.mapPosY);
 	}
 
 	drawExplosionOne(posx, posy) {
-		ctx6.drawImage(bombsExplosion, posx - 12, posy - 2, 60, 60);
+		ctx8.drawImage(bombsExplosion, posx - 12, posy - 2, position, position);
 	}
 }
 
@@ -58,10 +58,10 @@ function drawBombsInMap(rowsBombs, columnsBombs, rowsBombsOther, columnsBombsOth
 			var row2 = new BombsInMap(spacePosition * k * 2 + 12 - spacePosition, rowsBombsOther * spacePosition + 2);
 			row2.drawBombRow();
 			pushBombs(forNumber,columnsBombsOther,true);
-			var row3 = new BombsInMap(columnsBombsOther * spacePosition + 12, 60 * k * 2 - spacePosition + 2);
+			var row3 = new BombsInMap(columnsBombsOther * spacePosition + 12, spacePosition * k * 2 - spacePosition + 2);
 			row3.drawBombColumn();
 			pushBombs(forNumber,columnsBombs,true);
-			var row4 = new BombsInMap(columnsBombs * spacePosition + 12, 60 * k * 2 - spacePosition + 2);
+			var row4 = new BombsInMap(columnsBombs * spacePosition + 12, spacePosition * k * 2 - spacePosition + 2);
 			row4.drawBombColumn();
 			
 		} else if (change == false && forNumber == 7) {
@@ -73,10 +73,10 @@ function drawBombsInMap(rowsBombs, columnsBombs, rowsBombsOther, columnsBombsOth
 			row2.drawBombOne();
 		} else if (forNumber == 3) {
 			arrayObjects[k*2][rowsBombs]=2;
-			var row3 = new BombsInMap(rowsBombs * spacePosition + 12, 60 * k * 2 + 2);
+			var row3 = new BombsInMap(rowsBombs * spacePosition + 12, spacePosition * k * 2 + 2);
 			row3.drawBombOne();
 			arrayObjects[k*2][rowsBombsOther]=2;
-			var row4 = new BombsInMap(rowsBombsOther * spacePosition + 12, 60 * k * 2 + 2);
+			var row4 = new BombsInMap(rowsBombsOther * spacePosition + 12, spacePosition * k * 2 + 2);
 			row4.drawBombOne();
 		}
 

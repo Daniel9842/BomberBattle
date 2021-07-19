@@ -11,6 +11,7 @@ var timerSizeBomb = setInterval(sizeBomb, 15000);
 var players = [1, 2, 3, 4];
 var myPlayer = 0;
 var lastShift = 0;
+var bombPlayer=0;
 
 var rightPressed = false;
 var leftPressed = false;
@@ -50,16 +51,20 @@ function keyDownHandler(e) {
 		spacePressed = true;
 		wsreference.send(5, myPlayer);
 		if (myPlayer == 1) {
-			player1.makeBomb();
+			bombPlayer=1;
+			player1.makeBomb(bombPlayer);
 			setTimeout(setStateBomb, 3000, myPlayer);
 		} else if (myPlayer == 2) {
-			player2.makeBomb();
+			bombPlayer=2;
+			player2.makeBomb(bombPlayer);
 			setTimeout(setStateBomb, 3000, myPlayer);
 		} else if (myPlayer == 3) {
-			player3.makeBomb();
+			bombPlayer=3;
+			player3.makeBomb(bombPlayer);
 			setTimeout(setStateBomb, 3000, myPlayer);
 		} else if (myPlayer == 4) {
-			player4.makeBomb();
+			bombPlayer=4;
+			player4.makeBomb(bombPlayer);
 			setTimeout(setStateBomb, 3000, myPlayer);
 		}
 
@@ -89,16 +94,16 @@ function keyUpHandler(e) {
 
 function orderBomb(orderBombPlayer) {
 	if (orderBombPlayer == 1) {
-		player1.makeBomb();
+		player1.makeBomb(1);
 		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	} else if (orderBombPlayer == 2) {
-		player2.makeBomb();
+		player2.makeBomb(2);
 		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	} else if (orderBombPlayer == 3) {
-		player3.makeBomb();
+		player3.makeBomb(3);
 		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	} else if (orderBombPlayer == 4) {
-		player4.makeBomb();
+		player4.makeBomb(4);
 		setTimeout(setStateBomb, 3000, orderBombPlayer);
 	}
 }
@@ -295,7 +300,7 @@ let wsreference = comunicationWS;
 function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
-	console.log("URL Calculada: " + url);
+	var url2 = 'ws://localhost:8080/bomberService';
 	return url;
 }
 

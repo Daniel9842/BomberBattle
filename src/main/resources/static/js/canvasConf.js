@@ -9,23 +9,33 @@ const ctx2 = canvasPlayer.getContext('2d');
 canvasPlayer.width = 900;
 canvasPlayer.height = 540;
 
-const canvasBomb = document.getElementById('canvasBomb');
-const ctx3 = canvasBomb.getContext('2d');
-canvasBomb.width = 900;
-canvasBomb.height = 540;
+const canvasBombOne = document.getElementById('canvasBombOne');
+const ctx3 = canvasBombOne.getContext('2d');
+canvasBombOne.width = 900;
+canvasBombOne.height = 540;
 
-const canvasBoom = document.getElementById('canvasBoom');
-const ctx4 = canvasBoom.getContext('2d');
-canvasBoom.width = 900;
-canvasBoom.height = 540;
+const canvasBombTwo = document.getElementById('canvasBombTwo');
+const ctx4 = canvasBombTwo.getContext('2d');
+canvasBombTwo.width = 900;
+canvasBombTwo.height = 540;
+
+const canvasBombThree = document.getElementById('canvasBombThree');
+const ctx5 = canvasBombThree.getContext('2d');
+canvasBombThree.width = 900;
+canvasBombThree.height = 540;
+
+const canvasBombFour = document.getElementById('canvasBombFour');
+const ctx6 = canvasBombFour.getContext('2d');
+canvasBombFour.width = 900;
+canvasBombFour.height = 540;
 
 const canvasMapBomb = document.getElementById('canvasMapBomb');
-const ctx5 = canvasMapBomb.getContext('2d');
+const ctx7 = canvasMapBomb.getContext('2d');
 canvasMapBomb.width = 900;
 canvasMapBomb.height = 540;
 
 const canvasExplosionBomb = document.getElementById('canvasExplosionBomb');
-const ctx6 = canvasExplosionBomb.getContext('2d');
+const ctx8 = canvasExplosionBomb.getContext('2d');
 canvasExplosionBomb.width = 900;
 canvasExplosionBomb.height = 540;
 
