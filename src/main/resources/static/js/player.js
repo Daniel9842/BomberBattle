@@ -260,7 +260,7 @@ class BomberBattleChannel {
 		console.error("In onError", evt);
 	}
 	send(press, player) {
-		let msg = '{ "y": ' + (press) + ', "x": ' + (player) + "}";
+		let msg = '{ "direction": ' + (press) + ', "numberPlayer": ' + (player) + "}";
 		console.log("sending: ", msg);
 		this.wsocket.send(msg);
 	}
@@ -270,27 +270,26 @@ var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
 	(msg) => {
 		var obj = JSON.parse(msg);
 		console.log("On func call back ", msg);
-		changePlayer(obj.x);
-		if (obj.y == 1) {
+		changePlayer(obj.numberPlayer);
+		if (obj.direction == 1) {
 			rightPressed = true;
-			selectDraw(obj.x);
-			draw();
+			selectDraw(obj.numberPlayer);
 			rightPressed = false;
-		} else if (obj.y == 2) {
+		} else if (obj.direction == 2) {
 			leftPressed = true;
-			selectDraw(obj.x);
+			selectDraw(obj.numberPlayer);
 			leftPressed = false;
-		} else if (obj.y == 3) {
+		} else if (obj.direction == 3) {
 			upPressed = true;
-			selectDraw(obj.x);
+			selectDraw(obj.numberPlayer);
 			upPressed = false;
-		} else if (obj.y == 4) {
+		} else if (obj.direction == 4) {
 			downPressed = true;
-			selectDraw(obj.x);
+			selectDraw(obj.numberPlayer);
 			downPressed = false;
-		} else if (obj.y == 5) {
+		} else if (obj.direction == 5) {
 			spacePressed = true;
-			orderBomb(obj.x);
+			orderBomb(obj.numberPlayer);
 			spacePressed = false;
 		}
 
@@ -316,7 +315,6 @@ function changePlayer(playersMessage) {
 		players.shift();
 	}
 }
-
 
 
 function selectDraw(playersMessages) {

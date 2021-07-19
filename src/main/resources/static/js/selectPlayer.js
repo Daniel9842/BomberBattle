@@ -94,6 +94,7 @@ class Player {
 	
 }
 
+
 var player1 = new Player(12, 2, 0, 0,false);
 var player2 = new Player(14 * 60 + 12, 2, 0, 14,false);
 var player3 = new Player(12, 8 * 60 + 2, 8, 0,false);
