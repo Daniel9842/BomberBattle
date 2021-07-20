@@ -102,6 +102,7 @@ function draw(playerSelect,rightPressed,leftPressed,upPressed,downPressed) {
 	}
 
 	if (player2.playerAlive) {
+		console.log();
 		var playerTwo = new Image();
 		playerTwo.src = 'images/yellow.png';
 		playerTwo.onload = function () {
@@ -261,7 +262,7 @@ function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
 	var url2 = 'ws://localhost:8080/bomberService';
-	return url2;
+	return url;
 }
 
 function changePlayer(playersMessage) {
