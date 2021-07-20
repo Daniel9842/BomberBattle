@@ -262,7 +262,7 @@ function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
 	var url2 = 'ws://localhost:8080/bomberService';
-	return url2;
+	return url;
 }
 
 function changePlayer(playersMessage) {
