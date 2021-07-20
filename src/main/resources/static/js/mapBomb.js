@@ -1,4 +1,16 @@
+setTimeout(drawBombsInMap, 25000, 0, 14, 8, 0, true, 1, 7);
+setTimeout(generateExplosion, 28000, 0, 14, 8, 0, true, 1, 7);
 
+setTimeout(drawBombsInMap, 50000, 1, 13, 7, 1, false, 1, 7);
+setTimeout(quitBombs, 53000, 1, 13, 7, 1, false, 1, 7);
+setTimeout(generateExplosion,53000, 1, 13, 7, 1, false, 1, 7);
+
+setTimeout(drawBombsInMap, 75000, 1, 0, 13, 0, false, 1, 3);
+setTimeout(quitBombs, 78000, 1, 0, 13, 0, false, 1, 3);
+setTimeout(generateExplosion, 78000, 1, 0, 13, 0, false, 1, 3);
+
+setTimeout(drawBombsInMap, 120000, 2, 12, 6, 2, true, 1, 7);
+setTimeout(generateExplosion, 120000, 2, 12, 6, 2, true, 1, 7);
 class BombsInMap {
 	constructor(mapPosX, mapPosY) {
 		this.mapPosX = mapPosX;

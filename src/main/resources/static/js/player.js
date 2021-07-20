@@ -6,6 +6,7 @@ var goUp = true;
 var goDown = true;
 var goLeft = true;
 var goRigth = true;
+var intervalBombs = 3200;
 var timerAlive = setInterval(itsAlive, 50);
 var timerSizeBomb = setInterval(sizeBomb, 20000);
 var players = [1, 2, 3, 4];
@@ -39,22 +40,22 @@ function keyDownHandler(e) {
 	}
 	else if (e.keyCode == 32) {
 		wsreference.send(5, myPlayer);
-		if (myPlayer == 1) {
+		if (myPlayer == 1 && player1.bombPlayerInMap==false) {
 			bombPlayer=1;
 			player1.makeBomb(bombPlayer);
-			setTimeout(setStateBomb, 3000, myPlayer);
-		} else if (myPlayer == 2) {
+			setTimeout(setStateBomb, intervalBombs, myPlayer);
+		} else if (myPlayer == 2 && player2.bombPlayerInMap==false) {
 			bombPlayer=2;
 			player2.makeBomb(bombPlayer);
-			setTimeout(setStateBomb, 3000, myPlayer);
-		} else if (myPlayer == 3) {
+			setTimeout(setStateBomb, intervalBombs, myPlayer);
+		} else if (myPlayer == 3 && player3.bombPlayerInMap==false) {
 			bombPlayer=3;
 			player3.makeBomb(bombPlayer);
-			setTimeout(setStateBomb, 3000, myPlayer);
-		} else if (myPlayer == 4) {
+			setTimeout(setStateBomb, intervalBombs, myPlayer);
+		} else if (myPlayer == 4 && player4.bombPlayerInMap==false) {
 			bombPlayer=4;
 			player4.makeBomb(bombPlayer);
-			setTimeout(setStateBomb, 3000, myPlayer);
+			setTimeout(setStateBomb, intervalBombs, myPlayer);
 		}
 
 	}
@@ -63,18 +64,18 @@ function keyDownHandler(e) {
 
 
 function orderBomb(orderBombPlayer) {
-	if (orderBombPlayer == 1) {
+	if (orderBombPlayer == 1  && player1.bombPlayerInMap==false) {
 		player1.makeBomb(1);
-		setTimeout(setStateBomb, 3000, orderBombPlayer);
-	} else if (orderBombPlayer == 2) {
+		setTimeout(setStateBomb, intervalBombs, orderBombPlayer);
+	} else if (orderBombPlayer == 2  && player2.bombPlayerInMap==false) {
 		player2.makeBomb(2);
-		setTimeout(setStateBomb, 3000, orderBombPlayer);
-	} else if (orderBombPlayer == 3) {
+		setTimeout(setStateBomb, intervalBombs, orderBombPlayer);
+	} else if (orderBombPlayer == 3  && player3.bombPlayerInMap==false) {
 		player3.makeBomb(3);
-		setTimeout(setStateBomb, 3000, orderBombPlayer);
-	} else if (orderBombPlayer == 4) {
+		setTimeout(setStateBomb, intervalBombs, orderBombPlayer);
+	} else if (orderBombPlayer == 4  && player4.bombPlayerInMap==false) {
 		player4.makeBomb(4);
-		setTimeout(setStateBomb, 3000, orderBombPlayer);
+		setTimeout(setStateBomb, intervalBombs, orderBombPlayer);
 	}
 }
 
@@ -190,7 +191,6 @@ function itsAlive() {
 }
 function setStateBomb(playerN) {
 	if (playerN == 1) {
-
 		player1.setBombPlayerInMap(false);
 	} else if (playerN == 2) {
 		player2.setBombPlayerInMap(false);
@@ -262,7 +262,7 @@ function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
 	var url2 = 'ws://localhost:8080/bomberService';
-	return url;
+	return url2;
 }
 
 function changePlayer(playersMessage) {
