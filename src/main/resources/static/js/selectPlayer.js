@@ -55,7 +55,7 @@ class Player {
 	}
 
 
-	drawPlayer() {
+	drawPlayer(rightPressed,leftPressed,upPressed,downPressed) {
 		if (rightPressed && this.playerColumn < columnsMap && (arrayObjects[this.playerRow][this.playerColumn + 1] == 0)) {
 			this.positionX += 60;
 			this.playerColumn += 1;

@@ -13,14 +13,8 @@ var myPlayer = 0;
 var lastShift = 0;
 var bombPlayer=0;
 
-var rightPressed = false;
-var leftPressed = false;
-var upPressed = false;
-var downPressed = false;
-var spacePressed = false;
-
 document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+
 
 
 function keyDownHandler(e) {
@@ -28,27 +22,22 @@ function keyDownHandler(e) {
 		myPlayer = players[0];
 	}
 	if (e.keyCode == 39) {
-		rightPressed = true;
 		wsreference.send(1, myPlayer);
-		draw(myPlayer);
+		draw(myPlayer,true,false,false,false);
 	}
 	else if (e.keyCode == 37) {
-		leftPressed = true;
 		wsreference.send(2, myPlayer);
-		draw(myPlayer);
+		draw(myPlayer,false,true,false,false);
 	}
 	else if (e.keyCode == 38) {
-		upPressed = true;
 		wsreference.send(3, myPlayer);
-		draw(myPlayer);
+		draw(myPlayer,false,false,true,false);
 	}
 	else if (e.keyCode == 40) {
-		downPressed = true;
 		wsreference.send(4, myPlayer);
-		draw(myPlayer);
+		draw(myPlayer,false,false,false,true);
 	}
 	else if (e.keyCode == 32) {
-		spacePressed = true;
 		wsreference.send(5, myPlayer);
 		if (myPlayer == 1) {
 			bombPlayer=1;
@@ -73,25 +62,6 @@ function keyDownHandler(e) {
 }
 
 
-function keyUpHandler(e) {
-	if (e.keyCode == 39) {
-		rightPressed = false;
-	}
-	else if (e.keyCode == 37) {
-		leftPressed = false;
-	}
-	else if (e.keyCode == 38) {
-		upPressed = false;
-	}
-	else if (e.keyCode == 40) {
-		downPressed = false;
-	}
-	else if (e.keyCode == 32) {
-		spacePressed = false;
-	}
-}
-
-
 function orderBomb(orderBombPlayer) {
 	if (orderBombPlayer == 1) {
 		player1.makeBomb(1);
@@ -108,16 +78,16 @@ function orderBomb(orderBombPlayer) {
 	}
 }
 
-function draw(playerSelect) {
+function draw(playerSelect,rightPressed,leftPressed,upPressed,downPressed) {
 
 	if (playerSelect == 1) {
-		player1.drawPlayer();
+		player1.drawPlayer(rightPressed,leftPressed,upPressed,downPressed);
 	} else if (playerSelect == 2) {
-		player2.drawPlayer();
+		player2.drawPlayer(rightPressed,leftPressed,upPressed,downPressed);
 	} else if (playerSelect == 3) {
-		player3.drawPlayer();
+		player3.drawPlayer(rightPressed,leftPressed,upPressed,downPressed);
 	} else if (playerSelect == 4) {
-		player4.drawPlayer();
+		player4.drawPlayer(rightPressed,leftPressed,upPressed,downPressed);
 	}
 
 	ctx2.clearRect(0, 0, 900, 540);
@@ -272,25 +242,16 @@ var comunicationWS = new BomberBattleChannel(BomberBattleServiceURL(),
 		console.log("On func call back ", msg);
 		changePlayer(obj.numberPlayer);
 		if (obj.direction == 1) {
-			rightPressed = true;
-			selectDraw(obj.numberPlayer);
-			rightPressed = false;
+			selectDraw(obj.numberPlayer,true,false,false,false);
 		} else if (obj.direction == 2) {
-			leftPressed = true;
-			selectDraw(obj.numberPlayer);
-			leftPressed = false;
+			selectDraw(obj.numberPlayer,false,true,false,false);
 		} else if (obj.direction == 3) {
-			upPressed = true;
-			selectDraw(obj.numberPlayer);
-			upPressed = false;
+			selectDraw(obj.numberPlayer,false,false,true,false);
 		} else if (obj.direction == 4) {
-			downPressed = true;
-			selectDraw(obj.numberPlayer);
-			downPressed = false;
+			selectDraw(obj.numberPlayer,false,false,false,true);
 		} else if (obj.direction == 5) {
-			spacePressed = true;
 			orderBomb(obj.numberPlayer);
-			spacePressed = false;
+
 		}
 
 	});
@@ -300,7 +261,7 @@ function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
 	var url2 = 'ws://localhost:8080/bomberService';
-	return url;
+	return url2;
 }
 
 function changePlayer(playersMessage) {
@@ -317,14 +278,14 @@ function changePlayer(playersMessage) {
 }
 
 
-function selectDraw(playersMessages) {
+function selectDraw(playersMessages,rightPressed,leftPressed,upPressed,downPressed) {
 	if (playersMessages == 1) {
-		draw(1);
+		draw(1,rightPressed,leftPressed,upPressed,downPressed);
 	} else if (playersMessages == 2) {
-		draw(2);
+		draw(2,rightPressed,leftPressed,upPressed,downPressed);
 	} else if (playersMessages == 3) {
-		draw(3);
+		draw(3,rightPressed,leftPressed,upPressed,downPressed);
 	} else if (playersMessages == 4) {
-		draw(4);
+		draw(4,rightPressed,leftPressed,upPressed,downPressed);
 	}
 }
