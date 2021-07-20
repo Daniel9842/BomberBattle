@@ -62,6 +62,8 @@ class Player {
 		}
 
 		else if (leftPressed && this.playerColumn > 0 && (arrayObjects[this.playerRow][this.playerColumn - 1] == 0)) {
+			console.log(this.playerRow);
+			console.log(this.playerColumn);
 			this.positionX -= 60;
 			this.playerColumn -= 1;
 		} else if (upPressed && this.playerRow > 0 && (arrayObjects[this.playerRow - 1][this.playerColumn] == 0)) {
