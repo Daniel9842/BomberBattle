@@ -3,10 +3,14 @@
 <head>
 	<style>
 		body {
-			background-image: url("images/fondo.PNG");
+			background-image: url("images/cielo.jfif");
 		}
 
-		
+		canvas {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 	</style>
 	<title>BomberLobby</title>
 	<meta charset="utf-8">
@@ -18,6 +22,10 @@
 </head>
 
 <body>
+	<div class="bomberLobby">
+		<canvas id="canvasLobby"></canvas>
+	</div>
+	<script src="js/lobby.js"></script>
 </body>
 
 </html>

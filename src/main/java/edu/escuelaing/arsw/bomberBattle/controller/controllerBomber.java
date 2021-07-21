@@ -1,12 +1,15 @@
 package edu.escuelaing.arsw.bomberBattle.controller;
 
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
+
 /**
- * this class controls which method will be written as html page
+ *
  * 
  * @author Daniel Santiago Ducuara Ardila
  *
@@ -14,5 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class controllerBomber {
+	int cont = 0;
+	
+	@PostMapping("/players")
+	public String processPoints(@RequestBody String player){
+		System.out.println(player);
+		cont+=1;
+		return player;
+	}
+
+	/**@PostMapping("/cantPoints")
+	public String getPositions(){
+		return gameRoom.getPlayers();
+	}*/
+	
 	
 }

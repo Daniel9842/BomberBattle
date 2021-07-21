@@ -17,8 +17,6 @@ var puesto = 4;
 
 document.addEventListener("keydown", keyDownHandler, false);
 
-
-
 function keyDownHandler(e) {
 	if (myPlayer == 0) {
 		myPlayer = players[0];
