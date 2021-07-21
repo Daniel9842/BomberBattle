@@ -13,6 +13,7 @@ var players = [1, 2, 3, 4];
 var myPlayer = 0;
 var lastShift = 0;
 var bombPlayer=0;
+var puesto = 4;
 
 document.addEventListener("keydown", keyDownHandler, false);
 
@@ -142,7 +143,9 @@ function itsAlive() {
 				draw(1);
 				if (myPlayer == 1) {
 					window.alert("Fuiste eliminado de la partida");
-					window.location.href = "/index.html"
+					window.location.href = "/results.html?puesto="+(puesto)+"&player=1"
+				}else{
+					puesto-=1;
 				}
 			}
 			if (arrayExplosion[player2.playerRowArray][player2.playerColumnArray] != 0 && player2.playerAlive) {
@@ -150,7 +153,9 @@ function itsAlive() {
 				draw(2);
 				if (myPlayer == 2) {
 					window.alert("Fuiste eliminado de la partida");
-					window.location.href = "/index.html"
+					window.location.href = "/results.html?puesto="+(puesto)+"&player=2"
+				}else{
+					puesto-=1;
 				}
 			}
 			if (arrayExplosion[player3.playerRowArray][player3.playerColumnArray] != 0 && player3.playerAlive) {
@@ -158,7 +163,9 @@ function itsAlive() {
 				draw(3);
 				if (myPlayer == 3) {
 					window.alert("Fuiste eliminado de la partida");
-					window.location.href = "/index.html"
+					window.location.href = "/results.html?puesto="+(puesto)+"&player=3"
+				}else{
+					puesto-=1;
 				}
 			}
 			if (arrayExplosion[player4.playerRowArray][player4.playerColumnArray] != 0 && player4.playerAlive) {
@@ -166,26 +173,24 @@ function itsAlive() {
 				draw(4);
 				if (myPlayer == 4) {
 					window.alert("Fuiste eliminado de la partida");
-					window.location.href = "/index.html"
+					window.location.href = "/results.html?puesto="+(puesto)+"&player=4"
+				}else{
+					puesto-=1;
 				}
 			}
 		}
-		/*if (myPlayer==1 && player1.playerAlive==true && player2.playerAlive==false && player3.playerAlive==false && player4.playerAlive==false) {
-			window.alert("Eres el ganador de la partida");
-			window.location.href = "/index.html"
+		if (myPlayer==1 && player1.playerAlive==true && player2.playerAlive==false && player3.playerAlive==false && player4.playerAlive==false) {
+			window.location.href = "/results.html?puesto=1&player=1"
 		}
 		if (myPlayer == 2 && player2.playerAlive==true && player1.playerAlive==false && player3.playerAlive==false && player4.playerAlive==false) {
-			window.alert("Eres el ganador de la partida");
-			window.location.href = "/index.html"
+			window.location.href = "/results.html?puesto=1&player=2"
 		}
 		if (myPlayer == 3 && player3.playerAlive==true && player1.playerAlive==false && player2.playerAlive==false && player4.playerAlive==false) {
-			window.alert("Eres el ganador de la partida");
-			window.location.href = "/index.html"
+			window.location.href = "/results.html?puesto=1&player=3"
 		}
 		if (myPlayer == 4 && player4.playerAlive==true && player1.playerAlive==false && player2.playerAlive==false && player3.playerAlive==false) {
-			window.alert("Eres el ganador de la partida");
-			window.location.href = "/index.html"
-		}*/
+			window.location.href = "/results.html?puesto=1&player=4"
+		}
 	}
 
 }
@@ -262,7 +267,7 @@ function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
 	var url2 = 'ws://localhost:8080/bomberService';
-	return url;
+	return url2;
 }
 
 function changePlayer(playersMessage) {
