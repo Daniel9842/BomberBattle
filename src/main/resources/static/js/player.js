@@ -11,7 +11,7 @@ var timerAlive = setInterval(itsAlive, 50);
 var timerSizeBomb = setInterval(sizeBomb, 20000);
 var players = [1, 2, 3, 4];
 var myPlayer = 0;
-var lastShift = 0;
+var lastShift = [];
 var bombPlayer=0;
 var puesto = 4;
 
@@ -265,18 +265,18 @@ function BomberBattleServiceURL() {
 	var host = window.location.host;
 	var url = 'wss://' + (host) + '/bomberService';
 	var url2 = 'ws://localhost:8080/bomberService';
-	return url;
+	return url2;
 }
 
 function changePlayer(playersMessage) {
-	if (playersMessage == 1 && myPlayer == 0 && lastShift != playersMessage) {
-		lastShift = playersMessage;
+	if (playersMessage == 1 && myPlayer == 0 && lastShift.includes(playersMessage)==false) {
+		lastShift.push(1);
 		players.shift();
-	} else if (playersMessage == 2 && myPlayer == 0 && lastShift != playersMessage) {
-		lastShift = playersMessage;
+	} else if (playersMessage == 2 && myPlayer == 0 && lastShift.includes(playersMessage)==false) {
+		lastShift.push(2);
 		players.shift();
-	} else if (playersMessage == 3 && myPlayer == 0 && lastShift != playersMessage) {
-		lastShift = playersMessage;
+	} else if (playersMessage == 3 && myPlayer == 0 && lastShift.includes(playersMessage)==false) {
+		lastShift.push(3);
 		players.shift();
 	}
 }
