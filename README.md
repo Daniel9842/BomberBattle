@@ -1,6 +1,6 @@
 # BomberBattle :bomb:
 ## Autor : Daniel Santiago Ducuara Ardila
-
+[![Heroku](https://www.herokucdn.com/deploy/button.png)](https://bomberbattle.herokuapp.com/)
 ## Resumen :exclamation:
 BomberBattle es un juego multijugador de estrategia en el que el ganador de cada partida es
 quien sobreviva a los múltiples ataques de sus enemigos.
@@ -72,3 +72,27 @@ Para poder agilizar la partida
 criterios de aceptación
 En el mapa aparederán bombas que cortaran parte del mapa para reducir 
 el tamaño y agilizar la partida.
+
+### Inicio
+
+En esta ventana se debe colocar un nombre de usuario para poder continuar a la sala de juego.
+![Inicio inicio](images/index.PNG "inicio")<br>
+
+### Sala de espera 
+En esta ventana se debe esperar a que se conecten cuatro jugadores para empezar la partida.
+![Lobby sala de juegos](images/lobby.PNG "sala de juegos")<br>
+
+
+### Juego
+Al ingresar a la partida el jugador puede desplazarse por el mapa y colocar bombas para 
+eliminar a su enemigo.
+![juego juego](images/game.PNG "juego")<br>
+
+### Mapa
+A medida que avance la partida caerán bombas que eliminaran parte del mapa.
+![Mapa mapa](images/bombs.PNG "mapa")<br>
+
+### Resultados
+Al final aparecerá el personaje del jugador y el lugar en el que resultó.
+![Resultados resultados](images/final.PNG "resultados")<br>
+
