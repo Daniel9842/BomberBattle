@@ -279,7 +279,6 @@ function changePlayer(playersMessage) {
 		lastShift.push(playersMessage);
 		players.shift();
 	}
-	console.log(lastShift);
 }
 
 
