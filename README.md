@@ -12,40 +12,22 @@ BomberBattle está basado en el juego arcade Bomberman.
 ![Diseño Bomberman](Design/Bomberman.png "Bomberman")<br>
 
 - Usuario: Cada jugador debe ingresar un nombre de usuario.
-- Sala de juego: Cada usuario puede entrar a una sala de juego o crear su propia sala de juego a cada sala de 
-  juego puede ingresar un máximo de ocho usuarios.
-- Partida: Una vez empiece la partida los jugadores empezarán a eliminarse hasta que quede un usuario, a medida
-  que avance el tiempo aparecerán en el mapa diversos poderes, una vez se vayan
-  eliminando jugadores para agilizar la partida aparecerán bombas que eliminarán parte del mapa.
-- Poderes: El juego contará diversos poderes que darán una ventaja al jugador.
-
-
+- Partida: Una vez empiece la partida los jugadores empezarán a eliminarse hasta que quede un usuario.
+- Bomba: Un jugador puede colocar una bomba cada 3 segundos y el tamaño de la bomba irá aumentando progesivamente con el 
+  paso de la partida.
+ -Mapa: El mapa irá generando bombas para ir reduciendo su tamaño y agilizar la partida.
 
 ## Historias de usuario :runner:
 
 ![Diseño userCase](Design/usercase.PNG "userCase")<br>
 
+### Ingresar a una partida
 
-### Crear sala de juego
-
-Como Usuario
-Quiero Crear una sala de juego
-Para que jugadores se unan a la partida.
-
+Como usuario
+Quiero ingresar a una partida
+Para poder empezar el juego
 criterios de aceptación
-- No puede haber dos salas de juego con el mismo nombre.
-- Cada sala debe tener como máximo 8 jugadores.
-- Un usuario no puede estar en dos salas de juego al tiempo.
-
-### Ingresar sala de juego
-
-Como Usuario
-Quiero ingresar a salas de juego
-Para entrar a jugar una partida.
-criterios de aceptación
-Se deben ingresar si:
-- La sala no está completa.
-- La sala  no está en partida.
+El usuario ingresará a una partida cuando se completen 4 usuarios esperando .
 
 ### Moverse por el mapa
 
@@ -59,11 +41,11 @@ El usuario debe poder moverse dentro del mapa.
 ### Colocar una bomba
 
 Como Usuario
-Quierocolocar una bomba
-Para poder eliminar los demás usuarios.
+Quiero colocar una bomba
+Para poder generar una explosión.
 criterios de aceptación
-Se debe colocar una bomba cada 5 segundos y en zonas libres del mapa.
-La bomba debe explotar según un tamaño y después de 3 segundos.
+Se debe colocar una bomba cada 3 segundos y en zonas libres del mapa.
+La bomba debe explotar según un tamaño.
 
 ### Eliminar usuario
 
@@ -73,10 +55,20 @@ Para poder ganar la partida.
 criterios de aceptación
 El usuario debe quedar eliminado si el rango de una bomba lo alcanza.
 
+### Generar explosión
 
-### romper muro
 Como Usuario
-Quiero romper un muro
-Paravpoder acceder a otras partes del mapa.
+Quiero que se genere una explosión
+Para poder eliminar los demás usuarios.
 criterios de aceptación
-El muro se rompe solamente con alguna bomba.
+el tamaño de la explosión irá aumentando con el paso del tiempo.
+Si la explosión alcanza un jugador será eliminado.
+
+### Eliminar parte del mapa
+
+Como Usuario
+Quiero que se elimine parte del mapa
+Para poder agilizar la partida
+criterios de aceptación
+En el mapa aparederán bombas que cortaran parte del mapa para reducir 
+el tamaño y agilizar la partida.

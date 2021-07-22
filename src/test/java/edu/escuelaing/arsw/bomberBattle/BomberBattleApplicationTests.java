@@ -1,9 +1,8 @@
 package edu.escuelaing.arsw.bomberBattle;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
 
-@SpringBootTest
 class BomberBattleApplicationTests {
+	
 
 }

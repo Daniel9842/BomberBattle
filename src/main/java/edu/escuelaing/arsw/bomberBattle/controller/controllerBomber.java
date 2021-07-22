@@ -1,8 +1,11 @@
 package edu.escuelaing.arsw.bomberBattle.controller;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -15,21 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 
-@RestController
+@Controller
 public class controllerBomber {
-	int cont = 0;
-	
-	@PostMapping("/players")
-	public String processPoints(@RequestBody String player){
-		System.out.println(player);
-		cont+=1;
-		return player;
-	}
-
-	/**@PostMapping("/cantPoints")
-	public String getPositions(){
-		return gameRoom.getPlayers();
-	}*/
 	
 	
 }
